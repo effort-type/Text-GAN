@@ -82,14 +82,14 @@ class GAN2vec:
         self.latent_dim = 128  # 증가된 latent dimension
 
         # 서로 다른 학습률 설정
-        d_optimizer = Adam(learning_rate=0.0002, beta_1=0.5, beta_2=0.999)
+        d_optimizer = Adam(
+            learning_rate=0.0001, beta_1=0.5, beta_2=0.999
+        )  # ver2에는 0.0002 (판별자가 2배 빠르게 학습)
         g_optimizer = Adam(learning_rate=0.0001, beta_1=0.5, beta_2=0.999)
 
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
-        self.discriminator.compile(
-            loss="binary_crossentropy", optimizer=d_optimizer
-        )
+        self.discriminator.compile(loss="binary_crossentropy", optimizer=d_optimizer)
 
         # Build the generator
         self.generator = self.build_generator()
